@@ -12,7 +12,7 @@ menu.DebugLevel=Debug Level
 menu.LwIPVariant=lwIP Variant
 
 ##############################################################
-generic.name=Generic ESP8266 Module
+generic.name=EDF ESP8266 Module
 
 generic.upload.tool=esptool
 generic.upload.speed=115200
