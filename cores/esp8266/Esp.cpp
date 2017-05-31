@@ -201,7 +201,7 @@ uint32_t EspClass::getFlashChipId(void)
 
 uint32_t EspClass::getFlashChipRealSize(void)
 {
-    return (1 << ((spi_flash_get_id() >> 16) & 0xFF));
+	return getFlashChipSize();
 }
 
 uint32_t EspClass::getFlashChipSize(void)
