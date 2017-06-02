@@ -306,19 +306,19 @@ void ESP8266WebServer::_parseArguments(String data) {
     DEBUG_OUTPUT.print(" &@ ");
     DEBUG_OUTPUT.println(next_arg_index);
 #endif
+    RequestArgument& arg = _currentArgs[iarg];
     if ((equal_sign_index == -1) || ((equal_sign_index > next_arg_index) && (next_arg_index != -1))) {
 #ifdef DEBUG_ESP_HTTP_SERVER
       DEBUG_OUTPUT.print("arg missing value: ");
       DEBUG_OUTPUT.println(iarg);
 #endif
-      if (next_arg_index == -1)
-        break;
-      pos = next_arg_index + 1;
-      continue;
-    }
-    RequestArgument& arg = _currentArgs[iarg];
+      arg.key = "";
+      arg.value = data.substring(pos, next_arg_index);
+  } else {
     arg.key = data.substring(pos, equal_sign_index);
-	arg.value = data.substring(equal_sign_index + 1, next_arg_index);
+    arg.value = data.substring(equal_sign_index + 1, next_arg_index);
+  }
+
 #ifdef DEBUG_ESP_HTTP_SERVER
     DEBUG_OUTPUT.print("arg ");
     DEBUG_OUTPUT.print(iarg);
