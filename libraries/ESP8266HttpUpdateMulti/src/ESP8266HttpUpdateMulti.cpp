@@ -159,7 +159,6 @@ ESP8266HttpUpdateMulti::HttpUpdateResult ESP8266HttpUpdateMulti::handleUpdate(HT
 			p_http.end();
 
 			if(isUpdateTypeFirmware) {
-				ESP.restart();
 				return RESULT_SUCCESS_FIRMWARE;
 			} else {
 				return RESULT_SUCCESS_DATASET;
