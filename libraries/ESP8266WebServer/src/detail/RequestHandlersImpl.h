@@ -55,11 +55,12 @@ protected:
 
 class StaticRequestHandler : public RequestHandler {
 public:
-    StaticRequestHandler(FS& fs, const char* path, const char* uri, const char* cache_header)
+    StaticRequestHandler(FS& fs, const char* path, const char* uri, const char* cache_header, long timeout)
     : _fs(fs)
     , _uri(uri)
     , _path(path)
     , _cache_header(cache_header)
+    , _timeout(timeout)
     {
         _isFile = fs.exists(path);
         DEBUGV("StaticRequestHandler: path=%s uri=%s isFile=%d, cache_header=%s\r\n", path, uri, _isFile, cache_header);
@@ -104,6 +105,8 @@ public:
                 path += ".gz";
         }
 
+        server.client().setTimeout(_timeout);
+
         File f = _fs.open(path, "r");
         if (!f)
             return false;
@@ -146,6 +149,7 @@ protected:
     String _uri;
     String _path;
     String _cache_header;
+    long _timeout;
     bool _isFile;
     size_t _baseUriLength;
 };
