@@ -47,7 +47,7 @@ ESP8266HttpUpdateMulti::HttpUpdateResult ESP8266HttpUpdateMulti::handleUpdate(HT
     p_http.setUserAgent("ESP8266-Http-Update-Multi");
     p_http.addHeader("X-Mac-Address", WiFi.macAddress());
     p_http.addHeader("X-Firmware-Version", p_firmwareVersion);
-    p_http.addHeader("X-Dataset-Version", p_firmwareVersion);
+    p_http.addHeader("X-Dataset-Version", p_datasetVersion);
 	p_http.addHeader("X-Chip-Size", String(ESP.getFlashChipRealSize()));
     p_http.addHeader("X-Free-Space", String(ESP.getFreeSketchSpace()));
 
