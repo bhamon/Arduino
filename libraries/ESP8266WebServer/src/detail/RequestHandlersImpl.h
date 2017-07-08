@@ -106,6 +106,7 @@ public:
         }
 
         server.client().setTimeout(_timeout);
+        server.client().setNoDelay(true);
 
         File f = _fs.open(path, "r");
         if (!f)
