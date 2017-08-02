@@ -83,16 +83,48 @@ class ESP8266HttpUpdateMulti {
       }
     }
 
-    // HTTP update
-    HttpUpdateResult update(const String& p_url, const String& p_firmwareVersion, const String& p_datasetVersion);
-    HttpUpdateResult update(const String& p_host, uint16_t p_port, const String& p_path, const String& p_firmwareVersion, const String& p_datasetVersion);
+    HttpUpdateResult update(
+      const String& p_url,
+      const String& p_uuid,
+      const String& p_firmwareVersion,
+      const String& p_datasetVersion
+    );
 
-    // HTTPS update
-    HttpUpdateResult update(const String& p_url, const String& p_firmwareVersion, const String& p_datasetVersion, const String& p_fingerprint);
-    HttpUpdateResult update(const String& p_host, uint16_t p_port, const String& p_path, const String& p_firmwareVersion, const String& p_datasetVersion, const String& p_fingerprint);
+    HttpUpdateResult update(
+      const String& p_host,
+      uint16_t p_port,
+      const String& p_path,
+      const String& p_uuid,
+      const String& p_firmwareVersion,
+      const String& p_datasetVersion
+    );
+
+    HttpUpdateResult update(
+      const String& p_url,
+      const String& p_uuid,
+      const String& p_firmwareVersion,
+      const String& p_datasetVersion,
+      const String& p_fingerprint
+    );
+
+    HttpUpdateResult update(
+      const String& p_host,
+      uint16_t p_port,
+      const String& p_path,
+      const String& p_uuid,
+      const String& p_firmwareVersion,
+      const String& p_datasetVersion,
+      const String& p_fingerprint
+    );
 
   private:
-    HttpUpdateResult handleUpdate(HTTPClient& p_http, const String& p_firmwareVersion, const String& p_datasetVersion);
+    HttpUpdateResult handleUpdate(
+      HTTPClient& p_http,
+      const String& p_uuid,
+      const String& p_firmwareVersion,
+      const String& p_datasetVersion
+    );
+
     bool runUpdate(int p_command, Stream& p_in, uint32_t p_size, const String& p_md5);
 };
 

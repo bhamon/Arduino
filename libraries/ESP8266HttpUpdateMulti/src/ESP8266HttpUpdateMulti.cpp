@@ -13,39 +13,70 @@ ESP8266HttpUpdateMulti::ESP8266HttpUpdateMulti()
 ESP8266HttpUpdateMulti::~ESP8266HttpUpdateMulti() {
 }
 
-ESP8266HttpUpdateMulti::HttpUpdateResult ESP8266HttpUpdateMulti::update(const String& p_url, const String& p_firmwareVersion, const String& p_datasetVersion) {
+ESP8266HttpUpdateMulti::HttpUpdateResult ESP8266HttpUpdateMulti::update(
+  const String& p_url,
+  const String& p_uuid,
+  const String& p_firmwareVersion,
+  const String& p_datasetVersion
+) {
   HTTPClient http;
   http.begin(p_url);
 
-  return handleUpdate(http, p_firmwareVersion, p_datasetVersion);
+  return handleUpdate(http, p_uuid, p_firmwareVersion, p_datasetVersion);
 }
 
-ESP8266HttpUpdateMulti::HttpUpdateResult ESP8266HttpUpdateMulti::update(const String& p_host, uint16_t p_port, const String& p_path, const String& p_firmwareVersion, const String& p_datasetVersion) {
+ESP8266HttpUpdateMulti::HttpUpdateResult ESP8266HttpUpdateMulti::update(
+  const String& p_host,
+  uint16_t p_port,
+  const String& p_path,
+  const String& p_uuid,
+  const String& p_firmwareVersion,
+  const String& p_datasetVersion
+) {
   HTTPClient http;
   http.begin(p_host, p_port, p_path);
 
-  return handleUpdate(http, p_firmwareVersion, p_datasetVersion);
+  return handleUpdate(http, p_uuid, p_firmwareVersion, p_datasetVersion);
 }
 
-ESP8266HttpUpdateMulti::HttpUpdateResult ESP8266HttpUpdateMulti::update(const String& p_url, const String& p_firmwareVersion, const String& p_datasetVersion, const String& p_fingerprint) {
+ESP8266HttpUpdateMulti::HttpUpdateResult ESP8266HttpUpdateMulti::update(
+  const String& p_url,
+  const String& p_uuid,
+  const String& p_firmwareVersion,
+  const String& p_datasetVersion,
+  const String& p_fingerprint
+) {
   HTTPClient http;
   http.begin(p_url, p_fingerprint);
 
-  return handleUpdate(http, p_firmwareVersion, p_datasetVersion);
+  return handleUpdate(http, p_uuid, p_firmwareVersion, p_datasetVersion);
 }
 
-ESP8266HttpUpdateMulti::HttpUpdateResult ESP8266HttpUpdateMulti::update(const String& p_host, uint16_t p_port, const String& p_path, const String& p_firmwareVersion, const String& p_datasetVersion, const String& p_fingerprint) {
+ESP8266HttpUpdateMulti::HttpUpdateResult ESP8266HttpUpdateMulti::update(
+  const String& p_host,
+  uint16_t p_port,
+  const String& p_path,
+  const String& p_uuid,
+  const String& p_firmwareVersion,
+  const String& p_datasetVersion,
+  const String& p_fingerprint
+) {
   HTTPClient http;
   http.begin(p_host, p_port, p_path, p_fingerprint);
 
-  return handleUpdate(http, p_firmwareVersion, p_datasetVersion);
+  return handleUpdate(http, p_uuid, p_firmwareVersion, p_datasetVersion);
 }
 
-ESP8266HttpUpdateMulti::HttpUpdateResult ESP8266HttpUpdateMulti::handleUpdate(HTTPClient& p_http, const String& p_firmwareVersion, const String& p_datasetVersion) {
+ESP8266HttpUpdateMulti::HttpUpdateResult ESP8266HttpUpdateMulti::handleUpdate(
+  HTTPClient& p_http,
+  const String& p_uuid,
+  const String& p_firmwareVersion,
+  const String& p_datasetVersion
+) {
   p_http.useHTTP10(true);
   p_http.setTimeout(8000);
   p_http.setUserAgent("ESP8266-Http-Update-Multi");
-  p_http.addHeader("X-Mac-Address", WiFi.macAddress());
+  p_http.addHeader("X-Uuid", p_uuid);
   p_http.addHeader("X-Firmware-Version", p_firmwareVersion);
   p_http.addHeader("X-Dataset-Version", p_datasetVersion);
   p_http.addHeader("X-Chip-Size", String(ESP.getFlashChipRealSize()));
