@@ -314,9 +314,11 @@ void ESP8266WebServer::_parseArguments(String data) {
 #endif
       arg.key = "";
       arg.value = data.substring(pos, next_arg_index);
-  } else {
-    arg.key = data.substring(pos, equal_sign_index);
-    arg.value = urlDecode(data.substring(equal_sign_index + 1, next_arg_index));
+    } else {
+      arg.key = data.substring(pos, equal_sign_index);
+      arg.value = urlDecode(data.substring(equal_sign_index + 1, next_arg_index));
+    }
+
 #ifdef DEBUG_ESP_HTTP_SERVER
     DEBUG_OUTPUT.print("arg ");
     DEBUG_OUTPUT.print(iarg);
